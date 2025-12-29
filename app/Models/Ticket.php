@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Ticket extends Model
+{
+    /** @use HasFactory<\Database\Factories\TicketFactory> */
+    use HasFactory;
+
+    protected $fillable = [
+        'theme',
+        'text',
+        'status',
+        'answered_at',
+        'customer_id',
+    ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+}
