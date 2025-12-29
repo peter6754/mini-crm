@@ -11,7 +11,7 @@ class UpdateTicketRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'theme' => ['nullable', 'string', 'max:255'],
+            'text' => ['nullable', 'string'],
+            'status' => ['nullable', 'in:new,in_progress,done'],
+            'answered_at' => ['nullable', 'date'],
+            'customer_id' => ['nullable', 'exists:customers,id'],
         ];
     }
 }

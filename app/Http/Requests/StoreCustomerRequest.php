@@ -22,7 +22,9 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:25|unique:customers',
+            'email' => 'required|email|max:255|unique:customers,email',
         ];
     }
 }
