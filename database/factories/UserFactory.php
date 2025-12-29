@@ -41,4 +41,12 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function manager(): static
+    {
+        return $this->afterCreating(function (\App\Models\User $user) {
+            $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'manager']);
+            $user->assignRole($role);
+        });
+    }
 }
