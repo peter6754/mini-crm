@@ -57,7 +57,7 @@
 
 <body>
     <h1>Contact Form</h1>
-    <form action="/submit" method="POST" enctype="multipart/form-data">
+    <form id="contactForm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
@@ -88,8 +88,76 @@
             <input type="file" id="files" name="files" multiple>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" id="submitBtn">Submit</button>
+        <div id="result" style="margin-top: 15px;"></div>
     </form>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const resultDiv = document.getElementById('result');
+            const formData = new FormData();
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            const files = document.getElementById('files').files;
+
+            const data = {
+                name: name,
+                phone: phone,
+                email: email,
+                theme: subject,
+                text: message,
+                status: 'new'
+            };
+
+            Object.keys(data).forEach(key => {
+                formData.append(key, data[key]);
+            });
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files[]', files[i]);
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            resultDiv.textContent = '';
+            resultDiv.className = '';
+
+            try {
+                const response = await fetch('/api/tickets', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.textContent = 'Ticket created successfully!';
+                    resultDiv.style.color = 'green';
+                    document.getElementById('contactForm').reset();
+                } else {
+                    resultDiv.textContent = 'Error: ' + (result.message || JSON.stringify(result.errors));
+                    resultDiv.style.color = 'red';
+                }
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.color = 'red';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit';
+            }
+        });
+    </script>
 </body>
 
 </html>
