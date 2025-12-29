@@ -26,7 +26,11 @@ class StoreTicketRequest extends FormRequest
             'text' => ['required', 'string'],
             'status' => ['nullable', 'in:new,in_progress,done'],
             'answered_at' => ['nullable', 'date'],
-            'customer_id' => ['required', 'exists:customers,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'regex:/^\+[1-9]\d{1,14}$/'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'attachments' => ['nullable', 'array', 'max:10'],
+            'attachments.*' => ['file', 'max:10240', 'mimes:jpg,jpeg,png,gif'],
         ];
     }
 }

@@ -23,7 +23,7 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:25|unique:customers',
+            'phone' => 'required|string|regex:/^\+[1-9]\d{1,14}$/|unique:customers',
             'email' => 'required|email|max:255|unique:customers,email',
         ];
     }

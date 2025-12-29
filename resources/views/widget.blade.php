@@ -65,7 +65,7 @@
 
         <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="tel" id="phone" name="phone" required>
+            <input type="tel" id="phone" name="phone" pattern="^\+[1-9]\d{1,14}$" placeholder="+3735454433" required>
         </div>
 
         <div class="form-group">
@@ -94,6 +94,18 @@
 
     <script>
         document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            const phone = document.getElementById('phone').value;
+            const phoneRegex = /^\+[1-9]\d{1,14}$/;
+
+            if (!phoneRegex.test(phone)) {
+                e.preventDefault();
+                const resultDiv = document.getElementById('result');
+                resultDiv.textContent = 'Error: Phone must be in E.164 format (e.g. +14155552671)';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+
             e.preventDefault();
 
             const submitBtn = document.getElementById('submitBtn');
@@ -101,7 +113,6 @@
             const formData = new FormData();
 
             const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
@@ -121,7 +132,7 @@
             });
 
             for (let i = 0; i < files.length; i++) {
-                formData.append('files[]', files[i]);
+                formData.append('attachments[]', files[i]);
             }
 
             submitBtn.disabled = true;
