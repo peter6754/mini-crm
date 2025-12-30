@@ -24,4 +24,19 @@ class Ticket extends Model implements HasMedia
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function scopeLastDay($query)
+    {
+        return $query->where('created_at', '>=', now()->subDay());
+    }
+
+    public function scopeLastWeek($query)
+    {
+        return $query->where('created_at', '>=', now()->subWeek());
+    }
+
+    public function scopeLastMonth($query)
+    {
+        return $query->where('created_at', '>=', now()->subMonth());
+    }
 }

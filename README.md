@@ -8,10 +8,25 @@
 </p>
 
 ## Mini-CRM
-Установка:
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan db:seed
+php 8.5, Laravel 12, sqlite3 <br>
 
-Основа админки Laravel Breeze
+Установка: <br>
+git clone <br>
+composer install <br>
+cp .env.example .env <br>
+php artisan key:generate <br>
+php artisan migrate --seed <br>
+npm install <br>
+npm run build <br>
+php artisan serve <br>
+
+
+При запуске сидов создается менеджер <br>
+Вход в админку логин: manager@example.com, пароль: password <br>
+Основа админки Laravel Breeze <br>
+
+
+API route <br>
+POST api/tickets - создание клиента и тикета <br>
+GET api/tickets/statistics - получение статистики <br>
+

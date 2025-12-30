@@ -73,4 +73,13 @@ class TicketService
 
         return $ticket->load('customer', 'media');
     }
+
+    public function getStatistics(): array
+    {
+        return [
+            'day' => Ticket::lastDay()->count(),
+            'week' => Ticket::lastWeek()->count(),
+            'month' => Ticket::lastMonth()->count(),
+        ];
+    }
 }

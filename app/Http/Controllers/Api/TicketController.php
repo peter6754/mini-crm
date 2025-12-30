@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Resources\TicketResource;
+use App\Http\Resources\TicketStatisticsResource;
 use App\Services\TicketService;
 use Illuminate\Http\JsonResponse;
 
@@ -25,5 +26,12 @@ class TicketController extends Controller
         );
 
         return new TicketResource($ticket)->response()->setStatusCode(201);
+    }
+
+    public function statistics(): TicketStatisticsResource
+    {
+        $statistics = $this->ticketService->getStatistics();
+
+        return new TicketStatisticsResource($statistics);
     }
 }
