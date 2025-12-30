@@ -7,11 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Mini-CRM
 Установка:
 composer install
 cp .env.example .env
 php artisan key:generate
 php artisan db:seed
 
-основа админки Laravel Breeze
+Основа админки Laravel Breeze
