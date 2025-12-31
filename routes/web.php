@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\AllowWidgetIframe;
 use App\Http\Middleware\IsManager;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/widget', fn () => view('widget'));
+Route::get('/widget', fn () => view('widget'))->middleware(AllowWidgetIframe::class);
 
 Route::get('/dashboard', [TicketController::class, 'index'])
     ->middleware(['auth', 'verified', IsManager::class])
