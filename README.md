@@ -30,3 +30,6 @@ API route <br>
 POST api/tickets - создание клиента и тикета <br>
 GET api/tickets/statistics - получение статистики <br>
 
+Встраиваемый виджет
+http://127.0.0.1:8000/test-iframe.html <br>
+
